@@ -15,7 +15,7 @@ npm i timeis
 
 type `timeis` in your  terminal to see the current time in UTC.
 
-![@usage](./assets/usage.png)
+![@usage](https://github.com/theabhayprajapati/timeis/blob/trunk/assets/usage.png?raw=true)
 
 <!-- title: i have made a npm package that can help us to see UTC time right in your terminal: -->
 <!-- subtitle: when we working on different projects we need to have a simple look at the utc time (universel time); without have a big google search in terminal. this can help -->
