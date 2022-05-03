@@ -1,11 +1,15 @@
 #!/usr/bin/env node
 
 import chalk from 'chalk';
-
-
 import { readFile } from 'fs/promises';
-
+import fetch from 'node-fetch';
+ 
+// spinner
+// run terminal command
+ 
 const pkg = JSON.parse(await readFile(new URL('./package.json', import.meta.url)));
+
+
 
 
 // check args from the command line
@@ -100,7 +104,7 @@ else if (args[0] === '-u' || args[0] === '--utc') {
     UTCtime();
 }
 // -p
-else if (args[0] === '-p' || args[0]==="-pst" || args[0] === '--pacific') {
+else if (args[0] === '-p' || args[0] === "-pst" || args[0] === '--pacific') {
     pacificTime();
 }
 // -i
@@ -109,8 +113,41 @@ else if (args[0] === '-i' || args[0] === '--india') {
 }
 // version
 else if (args[0] === '-v' || args[0] === '--version') {
-   console.log(chalk[color](pkg.name) ,`version`, chalk[color](pkg.version));
+    console.log(chalk[color](pkg.name), `version`, chalk[color](pkg.version));
 }
+
+// -s
+else if (args[0] === '-s' || args[0] === '--search') {
+    const dataJson = await fetch(`https://api.weatherapi.com/v1/current.json?key=6429569d006849fb94a134714220401&q=${args[1]}`)
+ 
+
+    const data = await dataJson.json();
+    // if data is not found
+    if (data.error) {
+        console.log(chalk.red(data.error.message));
+    }
+    else {
+        // remove loading
+        // spinner.stop();
+        // clearInterval(loading);
+        console.log(data.location.tz_id);
+        // if data
+        let time = data.location.localtime;
+        // remove date from the time
+        time = time.split(' ')[1];
+        // if the date is more then 12 then add pm
+        if (time.split(':')[0] > 12) {
+            time = time.split(':')[0] + ':' + time.split(':')[1] + ' pm';
+        }
+        // else add am
+        else {
+            time = time.split(':')[0] + ':' + time.split(':')[1] + ' am';
+
+        }
+        console.log(chalk[color](time));
+    }
+}
+
 
 // default
 else {
