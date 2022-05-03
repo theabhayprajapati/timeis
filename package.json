@@ -1,6 +1,6 @@
 {
   "name": "timeis",
-  "version": "1.5.4",
+  "version": "2.0.0",
   "description": "UTC time for all",
   "type": "module",
   "main": "index.js",
